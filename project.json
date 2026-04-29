@@ -1,0 +1,25 @@
+{
+  "overview": "Aqua Sentry is a real-time environmental monitoring dashboard for surface water pollution detection. It uses AI-based object detection and IoT sensors to monitor lakes, ponds, and rivers — displaying live pollution levels, AI detections, sensor readings, trend analytics, and automated alerts.",
+  "features": [
+    "Real-time pollution level gauge (Low/Medium/High) with animated status indicator",
+    "AI object detection panel with bounding boxes for plastic waste and debris",
+    "Water quality sensor cards for pH, Turbidity (NTU), and TDS (ppm) with range indicators",
+    "Pollution score analytics (0-100) with 24-hour trend charts",
+    "AI Prediction Panel showing 1-hour pollution forecast with confidence score",
+    "Eco Suggestion Box with contextual recommendations based on pollution level",
+    "Real-time color-coded alert panel with timestamps",
+    "Device status monitoring (Raspberry Pi, sensors, battery, connectivity)",
+    "Historical data visualization with pH, TDS, and pollution score trend graphs"
+  ],
+  "category": "productivity",
+  "tags": [
+    "water-quality",
+    "environmental-monitoring",
+    "iot",
+    "ai-detection",
+    "real-time-dashboard",
+    "pollution-tracking",
+    "smart-sensors"
+  ],
+  "last_updated": "2026-04-29T02:02:02.288Z"
+}

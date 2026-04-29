@@ -1,0 +1,101 @@
+type Timestamp = int;
+type SensorReading = 
+ record {
+   ph: float64;
+   tds: float64;
+   timestamp: Timestamp;
+   turbidity: float64;
+ };
+type SensorHistoryEntry = 
+ record {
+   ph: float64;
+   tds: float64;
+   timestamp: Timestamp;
+   turbidity: float64;
+ };
+type PollutionScore = 
+ record {
+   classification: PollutionClassification;
+   level: PollutionLevel;
+   score: nat;
+   timestamp: Timestamp;
+ };
+type PollutionLevel = 
+ variant {
+   High;
+   Low;
+   Medium;
+ };
+type PollutionHistoryEntry = 
+ record {
+   score: nat;
+   timestamp: Timestamp;
+ };
+type PollutionClassification = 
+ variant {
+   Clean;
+   HighlyPolluted;
+   Moderate;
+ };
+type Location = 
+ record {
+   description: text;
+   latitude: float64;
+   longitude: float64;
+   waterBodyName: text;
+ };
+type DeviceStatus = 
+ record {
+   batteryLevel: nat;
+   lastHeartbeat: Timestamp;
+   raspberryPiOnline: bool;
+   sensorWorking: bool;
+   wifiConnected: bool;
+ };
+type DetectionResult = 
+ record {
+   objects: vec DetectedObject;
+   timestamp: Timestamp;
+   totalCount: nat;
+ };
+type DetectedObject = 
+ record {
+   confidence: float64;
+   height: float64;
+   objectType: text;
+   width: float64;
+   x: float64;
+   y: float64;
+ };
+type AlertSeverity = 
+ variant {
+   critical;
+   high;
+   low;
+   medium;
+ };
+type AlertId = nat;
+type Alert = 
+ record {
+   id: AlertId;
+   isAcknowledged: bool;
+   message: text;
+   severity: AlertSeverity;
+   timestamp: Timestamp;
+ };
+service : {
+  acknowledgeAlert: (id: AlertId) -> (bool);
+  addAlert: (message: text, severity: AlertSeverity) -> (AlertId);
+  addDetectionResult: (objects: vec DetectedObject) -> ();
+  getActiveAlerts: () -> (vec Alert) query;
+  getCurrentSensorReading: () -> (opt SensorReading) query;
+  getDeviceStatus: () -> (DeviceStatus) query;
+  getLatestDetections: () -> (opt DetectionResult) query;
+  getLocation: () -> (Location) query;
+  getPollutionHistory: () -> (vec PollutionHistoryEntry) query;
+  getPollutionScore: () -> (opt PollutionScore) query;
+  getSensorHistory: () -> (vec SensorHistoryEntry) query;
+  updateDeviceStatus: (raspberryPiOnline: bool, sensorWorking: bool,
+   batteryLevel: nat, wifiConnected: bool) -> ();
+  updateSensorReading: (ph: float64, turbidity: float64, tds: float64) -> ();
+}

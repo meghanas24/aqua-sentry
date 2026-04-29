@@ -1,0 +1,96 @@
+// Version: 1.0.0
+type AlertId__713986303 = AlertId__758494499;
+type AlertId__758494499 = Nat;
+type AlertSeverity__569849328 = {#critical; #high; #low; #medium};
+type Alert__523427925 =
+  {
+    id : AlertId__713986303;
+    isAcknowledged : Bool;
+    message : Text;
+    severity : AlertSeverity__569849328;
+    timestamp : Timestamp__505722166
+  };
+type DetectedObject__715129342 =
+  {
+    confidence : Float;
+    height : Float;
+    objectType : Text;
+    width : Float;
+    x : Float;
+    y : Float
+  };
+type DetectionResult__1063136608 =
+  {
+    objects : [DetectedObject__715129342];
+    timestamp : Timestamp__505722166;
+    totalCount : Nat
+  };
+type DeviceStatus__808160622 =
+  {
+    batteryLevel : Nat;
+    lastHeartbeat : Timestamp__505722166;
+    raspberryPiOnline : Bool;
+    sensorWorking : Bool;
+    wifiConnected : Bool
+  };
+type Location__489945125 =
+  {
+    description : Text;
+    latitude : Float;
+    longitude : Float;
+    waterBodyName : Text
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type PollutionClassification__630634126 =
+  {#Clean; #HighlyPolluted; #Moderate};
+type PollutionLevel__407488129 = {#High; #Low; #Medium};
+type PollutionScore__1034230219 =
+  {
+    classification : PollutionClassification__630634126;
+    level : PollutionLevel__407488129;
+    score : Nat;
+    timestamp : Timestamp__505722166
+  };
+type SensorReading__1015776241 =
+  {
+    ph : Float;
+    tds : Float;
+    timestamp : Timestamp__505722166;
+    turbidity : Float
+  };
+type Timestamp__301639476 = Int;
+type Timestamp__505722166 = Timestamp__301639476;
+actor {
+  stable alerts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Alert__523427925]];
+      var elementIndex : Nat__490723111
+    };
+  stable detections :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?DetectionResult__1063136608]];
+      var elementIndex : Nat__490723111
+    };
+  stable pollutionHistory :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?PollutionScore__1034230219]];
+      var elementIndex : Nat__490723111
+    };
+  stable seedReadings : [(Float, Float, Float)];
+  stable sensorReadings :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?SensorReading__1015776241]];
+      var elementIndex : Nat__490723111
+    };
+  stable state :
+    {
+      var deviceStatus : DeviceStatus__808160622;
+      var location : Location__489945125;
+      var nextAlertId : Nat
+    }
+};
